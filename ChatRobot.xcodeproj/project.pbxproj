@@ -9,12 +9,20 @@
 /* Begin PBXBuildFile section */
 		391579C124378A2700D0381A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579C024378A2700D0381A /* AppDelegate.swift */; };
 		391579C324378A2700D0381A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579C224378A2700D0381A /* SceneDelegate.swift */; };
-		391579C524378A2700D0381A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579C424378A2700D0381A /* ViewController.swift */; };
-		391579C824378A2700D0381A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 391579C624378A2700D0381A /* Main.storyboard */; };
+		391579C524378A2700D0381A /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579C424378A2700D0381A /* ChatViewController.swift */; };
 		391579CA24378A2800D0381A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 391579C924378A2800D0381A /* Assets.xcassets */; };
 		391579CD24378A2800D0381A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 391579CB24378A2800D0381A /* LaunchScreen.storyboard */; };
-		391579D824378A2900D0381A /* ChatRobotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579D724378A2900D0381A /* ChatRobotTests.swift */; };
+		391579D824378A2900D0381A /* ChatViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579D724378A2900D0381A /* ChatViewModelTests.swift */; };
 		391579E324378A2900D0381A /* ChatRobotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579E224378A2900D0381A /* ChatRobotUITests.swift */; };
+		391579F1243794EE00D0381A /* DatasourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579F0243794EE00D0381A /* DatasourceService.swift */; };
+		391579F32437950400D0381A /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579F22437950400D0381A /* ChatViewModel.swift */; };
+		391579F52437956500D0381A /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579F42437956500D0381A /* ChatModel.swift */; };
+		391579F72437959400D0381A /* allornothing.json in Resources */ = {isa = PBXBuildFile; fileRef = 391579F62437959400D0381A /* allornothing.json */; };
+		391579F92438AE8500D0381A /* ChatInfoProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579F82438AE8400D0381A /* ChatInfoProcessor.swift */; };
+		391579FB2438CE4100D0381A /* ChatInfoProcessorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579FA2438CE4100D0381A /* ChatInfoProcessorTest.swift */; };
+		391579FE2438E4DD00D0381A /* MockDataSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579FD2438E4DD00D0381A /* MockDataSourceService.swift */; };
+		39157A0024392AD700D0381A /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579FF24392AD700D0381A /* ChatListCell.swift */; };
+		39157A0224392EF900D0381A /* ResponseButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39157A0124392EF900D0381A /* ResponseButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,17 +46,25 @@
 		391579BD24378A2700D0381A /* ChatRobot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatRobot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		391579C024378A2700D0381A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		391579C224378A2700D0381A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		391579C424378A2700D0381A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		391579C724378A2700D0381A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		391579C424378A2700D0381A /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		391579C924378A2800D0381A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		391579CC24378A2800D0381A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		391579CE24378A2800D0381A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		391579D324378A2900D0381A /* ChatRobotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatRobotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		391579D724378A2900D0381A /* ChatRobotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRobotTests.swift; sourceTree = "<group>"; };
+		391579D724378A2900D0381A /* ChatViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModelTests.swift; sourceTree = "<group>"; };
 		391579D924378A2900D0381A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		391579DE24378A2900D0381A /* ChatRobotUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatRobotUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		391579E224378A2900D0381A /* ChatRobotUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRobotUITests.swift; sourceTree = "<group>"; };
 		391579E424378A2900D0381A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		391579F0243794EE00D0381A /* DatasourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasourceService.swift; sourceTree = "<group>"; };
+		391579F22437950400D0381A /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		391579F42437956500D0381A /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		391579F62437959400D0381A /* allornothing.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = allornothing.json; sourceTree = "<group>"; };
+		391579F82438AE8400D0381A /* ChatInfoProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoProcessor.swift; sourceTree = "<group>"; };
+		391579FA2438CE4100D0381A /* ChatInfoProcessorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoProcessorTest.swift; sourceTree = "<group>"; };
+		391579FD2438E4DD00D0381A /* MockDataSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataSourceService.swift; sourceTree = "<group>"; };
+		391579FF24392AD700D0381A /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
+		39157A0124392EF900D0381A /* ResponseButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +117,14 @@
 			children = (
 				391579C024378A2700D0381A /* AppDelegate.swift */,
 				391579C224378A2700D0381A /* SceneDelegate.swift */,
-				391579C424378A2700D0381A /* ViewController.swift */,
-				391579C624378A2700D0381A /* Main.storyboard */,
+				391579C424378A2700D0381A /* ChatViewController.swift */,
+				39157A0124392EF900D0381A /* ResponseButtonView.swift */,
+				391579FF24392AD700D0381A /* ChatListCell.swift */,
+				391579F0243794EE00D0381A /* DatasourceService.swift */,
+				391579F22437950400D0381A /* ChatViewModel.swift */,
+				391579F82438AE8400D0381A /* ChatInfoProcessor.swift */,
+				391579F42437956500D0381A /* ChatModel.swift */,
+				391579F62437959400D0381A /* allornothing.json */,
 				391579C924378A2800D0381A /* Assets.xcassets */,
 				391579CB24378A2800D0381A /* LaunchScreen.storyboard */,
 				391579CE24378A2800D0381A /* Info.plist */,
@@ -113,8 +135,10 @@
 		391579D624378A2900D0381A /* ChatRobotTests */ = {
 			isa = PBXGroup;
 			children = (
-				391579D724378A2900D0381A /* ChatRobotTests.swift */,
+				391579FC2438E4C400D0381A /* Mock */,
+				391579D724378A2900D0381A /* ChatViewModelTests.swift */,
 				391579D924378A2900D0381A /* Info.plist */,
+				391579FA2438CE4100D0381A /* ChatInfoProcessorTest.swift */,
 			);
 			path = ChatRobotTests;
 			sourceTree = "<group>";
@@ -126,6 +150,14 @@
 				391579E424378A2900D0381A /* Info.plist */,
 			);
 			path = ChatRobotUITests;
+			sourceTree = "<group>";
+		};
+		391579FC2438E4C400D0381A /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				391579FD2438E4DD00D0381A /* MockDataSourceService.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,8 +265,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				391579CD24378A2800D0381A /* LaunchScreen.storyboard in Resources */,
+				391579F72437959400D0381A /* allornothing.json in Resources */,
 				391579CA24378A2800D0381A /* Assets.xcassets in Resources */,
-				391579C824378A2700D0381A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,9 +291,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				391579C524378A2700D0381A /* ViewController.swift in Sources */,
+				391579F32437950400D0381A /* ChatViewModel.swift in Sources */,
+				39157A0024392AD700D0381A /* ChatListCell.swift in Sources */,
+				391579C524378A2700D0381A /* ChatViewController.swift in Sources */,
+				39157A0224392EF900D0381A /* ResponseButtonView.swift in Sources */,
+				391579F92438AE8500D0381A /* ChatInfoProcessor.swift in Sources */,
 				391579C124378A2700D0381A /* AppDelegate.swift in Sources */,
+				391579F1243794EE00D0381A /* DatasourceService.swift in Sources */,
 				391579C324378A2700D0381A /* SceneDelegate.swift in Sources */,
+				391579F52437956500D0381A /* ChatModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +307,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				391579D824378A2900D0381A /* ChatRobotTests.swift in Sources */,
+				391579FE2438E4DD00D0381A /* MockDataSourceService.swift in Sources */,
+				391579FB2438CE4100D0381A /* ChatInfoProcessorTest.swift in Sources */,
+				391579D824378A2900D0381A /* ChatViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +337,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		391579C624378A2700D0381A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				391579C724378A2700D0381A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		391579CB24378A2800D0381A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

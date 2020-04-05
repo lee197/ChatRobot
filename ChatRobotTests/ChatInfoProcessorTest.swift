@@ -62,7 +62,7 @@ class ChatInfoProcessorTest: XCTestCase {
         // given
         let chatData = DataGenerator()
         chatData.finishFetchChatData()
-        let chatInfoProcessor = ChatInfoProcessor.init(chatScheme: chatData.completeChatData!)
+        let chatInfoProcessor = ChatInfoProcessor(chatScheme: chatData.completeChatData!)
         
         // when
         let chatHistoryModel = try! chatInfoProcessor.findNextChat(withID: "YMB", andIndex: 20).get()

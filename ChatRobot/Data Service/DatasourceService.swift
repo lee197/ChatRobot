@@ -25,20 +25,16 @@ class DatasourceService: DatasourceProtocol {
     
     func getChatGuide(complete completionHandler: @escaping (Result<[ChatModel],ChatServiceError>) -> ()) {
         
-        DispatchQueue.global().async { [weak self] in
-            do {
-                let path = Bundle.main.path(forResource: self?.fileName, ofType: "json")!
-                let data = try Data(contentsOf: URL(fileURLWithPath: path))
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                let chatSchme = try decoder.decode([ChatModel].self, from: data)
-                completionHandler(.success(chatSchme))
-            } catch  {
-                completionHandler(.failure(.serverError))
-            }
+        do {
+            let path = Bundle.main.path(forResource: fileName, ofType: "json")!
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            let chatSchme = try decoder.decode([ChatModel].self, from: data)
+            completionHandler(.success(chatSchme))
+        } catch  {
+            completionHandler(.failure(.serverError))
         }
-        
-        
     }
 }
 

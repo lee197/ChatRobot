@@ -14,51 +14,64 @@ class ChatViewController: UIViewController {
         return ChatViewModel()
     }()
     private var buttonModels = {
-       return [ResponseButtonModel]()
+        return [ResponseButtonModel]()
     }()
-    private var tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0,
-                                                  y: 0,
-                                                  width: UIScreen.main.bounds.width,
-                                                  height: UIScreen.main.bounds.height - 80))
-        tableView.backgroundColor = .darkGray
+    private weak var tableView: UITableView!
+    private weak var collectionView: UICollectionView!
+    private let spacing:CGFloat = 16.0
+    
+    override func loadView() {
+        super.loadView()
+        
+        let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+        tableView.backgroundColor = UIColor(red: 0, green: 33/255, blue: 51/255, alpha: 1.0)
+        self.view.addSubview(tableView)
+        tableView.setContentHuggingPriority(UILayoutPriority(rawValue: 200), for: .vertical)
+        NSLayoutConstraint.activate([
+            self.view.topAnchor.constraint(equalTo: tableView.topAnchor),
+            self.view.bottomAnchor.constraint(equalTo: tableView.bottomAnchor,constant: 150),
+            self.view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            self.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+        ])
+        self.tableView = tableView
+        
+        let layout = UICollectionViewFlowLayout.init()
+        layout.itemSize = CGSize(width: self.view.frame.width/2 - 20, height: 44)
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 5
+        layout.sectionInset = UIEdgeInsets.init(top: 5, left: 10, bottom: 5, right: 10)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
+            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            self.view.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
+            self.view.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
+        ])
+        self.collectionView = collectionView
+    }
+    
+    private func setupCollectionView() {
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        self.collectionView.register(ChatButtonCell.self, forCellWithReuseIdentifier: ChatButtonCell.identifier)
+        self.collectionView.isScrollEnabled = false
+        self.collectionView.backgroundColor = UIColor(red: 0, green: 33/255, blue: 51/255, alpha: 1.0)
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.addSubview(tableView)
-        self.view.backgroundColor = .darkGray
+        self.view.backgroundColor = UIColor(red: 0, green: 33/255, blue: 51/255, alpha: 1.0)
+        self.navigationItem.title = "All or Nothing"
         setupTableView()
         initViewModel()
-    }
-    
-    func createChatView() {
-        
-        let chatView = UIView(frame: CGRect(x: 0,
-                                              y: UIScreen.main.bounds.height - 80,
-                                              width: UIScreen.main.bounds.width,
-                                              height: 80))
-        chatView.backgroundColor = UIColor.lightGray
-        
-        self.buttonModels = self.chatViewModel.getButtonGroup()
-        
-        for i in 0 ... buttonModels.count - 1 {
-            
-            let button = UIButton(frame: CGRect(x: 20 + i*60, y: 0, width: 60, height: 50))
-            button.setTitle(buttonModels[i].buttonText, for: .normal)
-            button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-            button.tag = i
-            chatView.addSubview(button)
-        }
-        
-        self.view.addSubview(chatView)
-    }
-    
-    @objc func buttonAction(_ sender: UIButton!) {
-        self.chatViewModel.userPressedButton(buttonModel: buttonModels[sender.tag])
+        setupCollectionView()
     }
     
     private func initViewModel() {
@@ -72,7 +85,9 @@ class ChatViewController: UIViewController {
         chatViewModel.reloadTableViewClosure = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
-                self?.createChatView()
+                self?.collectionView.reloadData()
+                self?.tableView.scrollToRow(at: IndexPath(item:(self?.chatViewModel.chatHistoryArray.count ?? 1) - 1, section: 0), at: .bottom, animated: true)
+                self?.buttonModels = self?.chatViewModel.getButtonGroup() ?? []
             }
         }
         
@@ -83,9 +98,12 @@ class ChatViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ChatListCell.self, forCellReuseIdentifier: "chatCell")
+        tableView.register(UserChatCell.self, forCellReuseIdentifier: "chatUserCell")
+        tableView.register(RobotChatCell.self, forCellReuseIdentifier: "chatRobotCell")
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 600
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableView.allowsSelection = false
     }
     
     private func showAlert(alertMessage:String){
@@ -97,14 +115,50 @@ class ChatViewController: UIViewController {
 }
 
 extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return self.chatViewModel.getNumberOfRows()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell") as! ChatListCell
-        cell.chatCellViewModel = chatViewModel.getCellModels(at: indexPath)
-        return cell
+        
+        let item = chatViewModel.getCellModels(at: indexPath)
+        if item.isRobot {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "chatRobotCell") as! RobotChatCell
+            cell.chatCellViewModel = item
+            return cell
+        }else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "chatUserCell") as! UserChatCell
+            cell.chatCellViewModel = item
+            return cell
+        }
+    }
+}
+
+extension ChatViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        
+        return buttonModels.count
     }
     
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChatButtonCell.identifier, for: indexPath) as! ChatButtonCell
+        cell.textLabel.text = buttonModels[indexPath.item].buttonText
+        cell.layer.borderColor = UIColor.white.cgColor
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = 5
+        return cell
+    }
+}
+
+extension ChatViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.chatViewModel.userPressedButton(buttonModel: buttonModels[indexPath.row])
+    }
 }

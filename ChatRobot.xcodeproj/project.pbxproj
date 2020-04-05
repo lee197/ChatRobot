@@ -21,8 +21,9 @@
 		391579F92438AE8500D0381A /* ChatInfoProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579F82438AE8400D0381A /* ChatInfoProcessor.swift */; };
 		391579FB2438CE4100D0381A /* ChatInfoProcessorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579FA2438CE4100D0381A /* ChatInfoProcessorTest.swift */; };
 		391579FE2438E4DD00D0381A /* MockDataSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579FD2438E4DD00D0381A /* MockDataSourceService.swift */; };
-		39157A0024392AD700D0381A /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579FF24392AD700D0381A /* ChatListCell.swift */; };
-		39157A0224392EF900D0381A /* ResponseButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39157A0124392EF900D0381A /* ResponseButtonView.swift */; };
+		39157A0024392AD700D0381A /* RobotChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391579FF24392AD700D0381A /* RobotChatCell.swift */; };
+		39157A04243A09CB00D0381A /* UserChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39157A03243A09CB00D0381A /* UserChatCell.swift */; };
+		39157A06243A2A9D00D0381A /* ChatButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39157A05243A2A9D00D0381A /* ChatButtonCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +64,9 @@
 		391579F82438AE8400D0381A /* ChatInfoProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoProcessor.swift; sourceTree = "<group>"; };
 		391579FA2438CE4100D0381A /* ChatInfoProcessorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoProcessorTest.swift; sourceTree = "<group>"; };
 		391579FD2438E4DD00D0381A /* MockDataSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataSourceService.swift; sourceTree = "<group>"; };
-		391579FF24392AD700D0381A /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
-		39157A0124392EF900D0381A /* ResponseButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseButtonView.swift; sourceTree = "<group>"; };
+		391579FF24392AD700D0381A /* RobotChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotChatCell.swift; sourceTree = "<group>"; };
+		39157A03243A09CB00D0381A /* UserChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChatCell.swift; sourceTree = "<group>"; };
+		39157A05243A2A9D00D0381A /* ChatButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatButtonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,8 +120,9 @@
 				391579C024378A2700D0381A /* AppDelegate.swift */,
 				391579C224378A2700D0381A /* SceneDelegate.swift */,
 				391579C424378A2700D0381A /* ChatViewController.swift */,
-				39157A0124392EF900D0381A /* ResponseButtonView.swift */,
-				391579FF24392AD700D0381A /* ChatListCell.swift */,
+				391579FF24392AD700D0381A /* RobotChatCell.swift */,
+				39157A05243A2A9D00D0381A /* ChatButtonCell.swift */,
+				39157A03243A09CB00D0381A /* UserChatCell.swift */,
 				391579F0243794EE00D0381A /* DatasourceService.swift */,
 				391579F22437950400D0381A /* ChatViewModel.swift */,
 				391579F82438AE8400D0381A /* ChatInfoProcessor.swift */,
@@ -292,9 +295,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				391579F32437950400D0381A /* ChatViewModel.swift in Sources */,
-				39157A0024392AD700D0381A /* ChatListCell.swift in Sources */,
+				39157A06243A2A9D00D0381A /* ChatButtonCell.swift in Sources */,
+				39157A0024392AD700D0381A /* RobotChatCell.swift in Sources */,
+				39157A04243A09CB00D0381A /* UserChatCell.swift in Sources */,
 				391579C524378A2700D0381A /* ChatViewController.swift in Sources */,
-				39157A0224392EF900D0381A /* ResponseButtonView.swift in Sources */,
 				391579F92438AE8500D0381A /* ChatInfoProcessor.swift in Sources */,
 				391579C124378A2700D0381A /* AppDelegate.swift in Sources */,
 				391579F1243794EE00D0381A /* DatasourceService.swift in Sources */,

@@ -24,6 +24,7 @@ class DatasourceService: DatasourceProtocol {
     let fileName = "allornothing"
     
     func getChatGuide(complete completionHandler: @escaping (Result<[ChatModel],ChatServiceError>) -> ()) {
+        
         DispatchQueue.global().async { [weak self] in
             do {
                 let path = Bundle.main.path(forResource: self?.fileName, ofType: "json")!

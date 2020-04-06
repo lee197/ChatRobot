@@ -5,7 +5,7 @@ button-only conversation with a robot
 * master - stable app releases
 * develop - development branch, merge features branches here
 
-## NASA METEORITE API:
+## API:
 * https://github.com/lee197/MeteoriteRecordApp/blob/master/MeteoriteRecordApp/ApiTestData.json
 
 ## Dependencies:

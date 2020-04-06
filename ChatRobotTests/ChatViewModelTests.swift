@@ -11,7 +11,7 @@ import XCTest
 
 class ChatViewModelTests: XCTestCase {
     
-    var sut:ChatViewModel!
+    var sut: ChatViewModel!
     var mockService: MockDataSourceService!
     
     override func setUp() {
@@ -26,12 +26,12 @@ class ChatViewModelTests: XCTestCase {
         sut = nil
     }
     
-    func testIfFetchGetCalled(){
+    func testIfFetchGetCalled() {
         sut.initFetch()
         XCTAssert(mockService.isFetchDataCalled)
     }
     
-    func testFetchFailed(){
+    func testFetchFailed() {
         let userError = UserAlertError.serverError
         let error = ChatServiceError.noEndChat
         
@@ -49,10 +49,10 @@ class ChatViewModelTests: XCTestCase {
         let testChatData = mockService.completeChatData[indexPath.row]
         
         // when
-        let vm = sut.getCellModels(at: indexPath)
+        let viewmodel = sut.getCellModels(at: indexPath)
         
         // assert
-        XCTAssertEqual(vm.contentText, testChatData.text)
+        XCTAssertEqual(viewmodel.contentText, testChatData.text)
     }
     
     func testGetButtonsGroupAtStart() {
@@ -68,46 +68,36 @@ class ChatViewModelTests: XCTestCase {
     }
     
     func testUserPressedFirstButtonInFristQuestion() {
-        
         goToFetchFinish()
         let startIndex = 0
         let userChoosedIndex = 0
         let startChatModel = mockService.completeChatData[startIndex]
-        
         let buttonModel = ResponseButtonModel(buttonIndex: startIndex,
                                               buttonChatID: startChatModel.id,
                                               buttonText: startChatModel.replies[userChoosedIndex])
-        
         sut.userPressedButton(buttonModel: buttonModel)
         let lastIndex = sut.chatHistoryArray.endIndex - 1
-        
         XCTAssertEqual(sut.chatHistoryArray[lastIndex - 1].contentText, buttonModel.buttonText)
     }
     
     func testRobotResponseAfterUserPressedFirstButton() {
-        
         goToFetchFinish()
         let startIndex = 0
         let userChoosedIndex = 0
         let startChatModel = mockService.completeChatData[startIndex]
-        
         let buttonModel = ResponseButtonModel(buttonIndex: startIndex,
                                               buttonChatID: startChatModel.id,
                                               buttonText: startChatModel.replies[userChoosedIndex])
         let testRoute = mockService.completeChatData[startIndex].routes[userChoosedIndex]
-        let testData = mockService.completeChatData.filter{ $0.id == testRoute }[0]
-        
+        let testData = mockService.completeChatData.filter { $0.id == testRoute }[0]
         sut.userPressedButton(buttonModel: buttonModel)
         let lastIndex = sut.chatHistoryArray.endIndex - 1
-        
         XCTAssertEqual(sut.chatHistoryArray[lastIndex].contentText, testData.text)
     }
-    
 }
 
 extension ChatViewModelTests {
-    
-    private func goToFetchFinish(){
+    private func goToFetchFinish() {
         let chatData = DataGenerator()
         chatData.finishFetchChatData()
         mockService.completeChatData = chatData.completeChatData!

@@ -8,19 +8,16 @@
 
 import Foundation
 
-class ChatInfoProcessor {
-    
+final class ChatInfoProcessor {
     let chatScheme: [ChatModel]
     let startTag = "allornothing-start"
     let endTag = "bye"
     
     init(chatScheme:[ChatModel]) {
-        
         self.chatScheme = chatScheme
     }
     
     func findStartChat() -> Result<ChatHistoryModel, ChatServiceError> {
-        
         for item in chatScheme {
             if item.tag == startTag {
                 let buttonModelArray = returnButtonArray(with: item)
@@ -46,18 +43,21 @@ class ChatInfoProcessor {
     ///  - Version: 0.1
     
     func findNextChat(withID chatID:String, andIndex buttonIndex:Int) -> Result<ChatHistoryModel, ChatServiceError> {
-        
         do {
             let nextChatID = try findNextChatID(chatID: chatID, buttonIndex: buttonIndex).get()
             
             if nextChatID == "end" {
-                return .success(ChatHistoryModel(contentText: nextChatID, isRobot: true, buttons: [] ))
+                return .success(ChatHistoryModel(contentText: nextChatID,
+                                                 isRobot: true,
+                                                 buttons: [] ))
             }
             
             for item in chatScheme {
                 if item.id == nextChatID {
                     let buttonModelArray = returnButtonArray(with: item)
-                    return .success(ChatHistoryModel(contentText: item.text, isRobot: true, buttons: buttonModelArray))
+                    return .success(ChatHistoryModel(contentText: item.text,
+                                                     isRobot: true,
+                                                     buttons: buttonModelArray))
                 }
             }
         } catch {
@@ -67,8 +67,7 @@ class ChatInfoProcessor {
         return .failure(.noNextChat)
     }
     
-    private func findNextChatID(chatID:String,buttonIndex:Int) -> Result<String, ChatServiceError> {
-        
+    private func findNextChatID(chatID:String, buttonIndex:Int) -> Result<String, ChatServiceError> {
         for item in chatScheme {
             if item.id == chatID {
                 let routes = item.routes
@@ -88,12 +87,13 @@ class ChatInfoProcessor {
     }
     
     private func returnButtonArray(with chatModel: ChatModel) -> [ResponseButtonModel] {
-         
-         var buttonModelArray = [ResponseButtonModel]()
+        var buttonModelArray: [ResponseButtonModel] = []
          let repliesArray = chatModel.replies
          
-         for i in 0 ... repliesArray.count - 1 {
-             buttonModelArray.append(ResponseButtonModel(buttonIndex: i, buttonChatID: chatModel.id, buttonText: repliesArray[i]))
+         for index in 0 ... repliesArray.count - 1 {
+             buttonModelArray.append(ResponseButtonModel(buttonIndex: index,
+                                                         buttonChatID: chatModel.id,
+                                                         buttonText: repliesArray[index]))
          }
          
          return buttonModelArray

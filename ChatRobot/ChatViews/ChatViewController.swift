@@ -9,23 +9,20 @@
 import UIKit
 
 class ChatViewController: UIViewController {
-    
     private lazy var chatViewModel = {
         return ChatViewModel()
     }()
-    private var buttonModels = {
-        return [ResponseButtonModel]()
+    private lazy var buttonModels: [ResponseButtonModel] = {
+        return []
     }()
     private weak var tableView: UITableView!
     private weak var collectionView: UICollectionView!
-    private let spacing:CGFloat = 16.0
     
     override func loadView() {
         super.loadView()
-        
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = UIColor(red: 0, green: 33/255, blue: 51/255, alpha: 1.0)
+        tableView.backgroundColor = AppColorScheme.themeColor
         self.view.addSubview(tableView)
         tableView.setContentHuggingPriority(UILayoutPriority(rawValue: 200), for: .vertical)
         NSLayoutConstraint.activate([
@@ -60,14 +57,12 @@ class ChatViewController: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.register(ChatButtonCell.self, forCellWithReuseIdentifier: ChatButtonCell.identifier)
         self.collectionView.isScrollEnabled = false
-        self.collectionView.backgroundColor = UIColor(red: 0, green: 33/255, blue: 51/255, alpha: 1.0)
+        self.collectionView.backgroundColor = AppColorScheme.themeColor
     }
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(red: 0, green: 33/255, blue: 51/255, alpha: 1.0)
+        self.view.backgroundColor = AppColorScheme.themeColor
         self.navigationItem.title = "All or Nothing"
         setupTableView()
         initViewModel()
@@ -75,28 +70,29 @@ class ChatViewController: UIViewController {
     }
     
     private func initViewModel() {
-        
         chatViewModel.showAlertClosure = { [weak self] in
+            guard let self = self else { return }
+
             DispatchQueue.main.async {
-                self?.showAlert(alertMessage: self?.chatViewModel.alertMessage ?? "UNKOWN ERROR")
+                self.showAlert(alertMessage: self.chatViewModel.alertMessage ?? "UNKOWN ERROR")
             }
         }
         
         chatViewModel.reloadTableViewClosure = { [weak self] in
+            guard let self = self else { return }
+
             DispatchQueue.main.async {
-                self?.tableView.reloadData()
-                self?.collectionView.reloadData()
-                self?.tableView.scrollToRow(at: IndexPath(item:(self?.chatViewModel.chatHistoryArray.count ?? 1) - 1, section: 0), at: .bottom, animated: true)
-                self?.buttonModels = self?.chatViewModel.getButtonGroup() ?? []
+                self.tableView.reloadData()
+                self.collectionView.reloadData()
+                self.tableView.scrollToRow(at: IndexPath(item: (self.chatViewModel.chatHistoryArray.count) - 1, section: 0), at: .bottom, animated: true)
+                self.buttonModels = self.chatViewModel.getButtonGroup()
             }
         }
         
         chatViewModel.initFetch()
     }
     
-    private func setupTableView(){
-        
-        tableView.delegate = self
+    private func setupTableView() {
         tableView.dataSource = self
         tableView.register(UserChatCell.self, forCellReuseIdentifier: "chatUserCell")
         tableView.register(RobotChatCell.self, forCellReuseIdentifier: "chatRobotCell")
@@ -106,29 +102,25 @@ class ChatViewController: UIViewController {
         tableView.allowsSelection = false
     }
     
-    private func showAlert(alertMessage:String){
-        
+    private func showAlert(alertMessage:String) {
         let alert = UIAlertController(title: "Alert", message: alertMessage, preferredStyle: .alert)
         alert.addAction( UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }
 
-extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
-    
+extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return self.chatViewModel.getNumberOfRows()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let item = chatViewModel.getCellModels(at: indexPath)
         if item.isRobot {
             let cell = tableView.dequeueReusableCell(withIdentifier: "chatRobotCell") as! RobotChatCell
             cell.chatCellViewModel = item
             return cell
-        }else {
+        } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "chatUserCell") as! UserChatCell
             cell.chatCellViewModel = item
             return cell
@@ -137,16 +129,13 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ChatViewController: UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        
         return buttonModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChatButtonCell.identifier, for: indexPath) as! ChatButtonCell
         cell.textLabel.text = buttonModels[indexPath.item].buttonText
         cell.layer.borderColor = UIColor.white.cgColor
@@ -157,8 +146,15 @@ extension ChatViewController: UICollectionViewDataSource {
 }
 
 extension ChatViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
         self.chatViewModel.userPressedButton(buttonModel: buttonModels[indexPath.row])
     }
+}
+
+enum AppColorScheme {
+    static let themeColor = UIColor(red: 0, green: 33/255, blue: 51/255, alpha: 1.0)
+    static let robotChatColor = UIColor(red: 0, green: 83/255, blue: 128/255, alpha: 1.0)
+    static let userChatColor = UIColor(red: 0, green: 128/255, blue: 0/255, alpha: 1.0)
+    static let navColor = UIColor(red: 0, green: 99/255, blue: 153/255, alpha: 1.0)
 }

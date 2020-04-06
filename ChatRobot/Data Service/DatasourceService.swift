@@ -16,15 +16,13 @@ enum ChatServiceError: String, Error {
 }
 
 protocol DatasourceProtocol {
-    func  getChatGuide(complete completionHandler: @escaping (Result<[ChatModel],ChatServiceError>) -> ())
+    func  getChatGuide(complete completionHandler: @escaping (Result<[ChatModel], ChatServiceError>) -> Void)
 }
 
-class DatasourceService: DatasourceProtocol {
-    
+final class DatasourceService: DatasourceProtocol {
     let fileName = "allornothing"
     
-    func getChatGuide(complete completionHandler: @escaping (Result<[ChatModel],ChatServiceError>) -> ()) {
-        
+    func getChatGuide(complete completionHandler: @escaping (Result<[ChatModel], ChatServiceError>) -> Void) {
         do {
             let path = Bundle.main.path(forResource: fileName, ofType: "json")!
             let data = try Data(contentsOf: URL(fileURLWithPath: path))
@@ -32,9 +30,8 @@ class DatasourceService: DatasourceProtocol {
             decoder.dateDecodingStrategy = .iso8601
             let chatSchme = try decoder.decode([ChatModel].self, from: data)
             completionHandler(.success(chatSchme))
-        } catch  {
+        } catch {
             completionHandler(.failure(.serverError))
         }
     }
 }
-

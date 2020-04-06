@@ -11,7 +11,7 @@ import XCTest
 
 class ChatInfoProcessorTest: XCTestCase {
     
-    func testFindStartChatWithStart(){
+    func testFindStartChatWithStart() {
         // given
         let chatData = DataGenerator()
         chatData.finishFetchChatData()
@@ -25,7 +25,7 @@ class ChatInfoProcessorTest: XCTestCase {
         XCTAssertEqual(chatHistoryModel.buttons[0].buttonChatID,chatData.completeChatData![0].id)
     }
     
-    func testFindStartChatWithoutStart(){
+    func testFindStartChatWithoutStart() {
         
         // given
         let chatData = DataGenerator()
@@ -35,7 +35,7 @@ class ChatInfoProcessorTest: XCTestCase {
         let chatInfoProcessor = ChatInfoProcessor.init(chatScheme: chatData.chatWithoutStart!)
         
         //assert
-        XCTAssertThrowsError(try chatInfoProcessor.findStartChat().get()){ error in
+        XCTAssertThrowsError(try chatInfoProcessor.findStartChat().get()) { error in
             
             XCTAssertEqual(error as! ChatServiceError, ChatServiceError.noStartChat)
         }
@@ -46,28 +46,24 @@ class ChatInfoProcessorTest: XCTestCase {
         // given
         let chatData = DataGenerator()
         chatData.finishFetchChatData()
-        
         // when
         let chatInfoProcessor = ChatInfoProcessor.init(chatScheme: chatData.chatWithoutEnd!)
-        
         //assert
-        XCTAssertThrowsError(try chatInfoProcessor.findNextChat(withID: "YMB", andIndex: 20).get()){ error in
+        XCTAssertThrowsError(try chatInfoProcessor.findNextChat(withID: "YMB", andIndex: 20).get()) { error in
             
             XCTAssertEqual(error as! ChatServiceError, ChatServiceError.noNextChat)
         }
     }
     
-    func testChatModelWithEnd(){
+    func testChatModelWithEnd() {
         
         // given
         let chatData = DataGenerator()
         chatData.finishFetchChatData()
-        let chatInfoProcessor = ChatInfoProcessor.init(chatScheme: chatData.completeChatData!)
-        
+        let chatInfoProcessor = ChatInfoProcessor(chatScheme: chatData.completeChatData!)
         // when
         let chatHistoryModel = try! chatInfoProcessor.findNextChat(withID: "YMB", andIndex: 20).get()
-        
         //assert
-        XCTAssertEqual(chatHistoryModel.contentText,"end")
+        XCTAssertEqual(chatHistoryModel.contentText, "end")
     }
 }

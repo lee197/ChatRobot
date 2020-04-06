@@ -9,9 +9,8 @@
 import Foundation
 
 struct ChatModel: Codable {
-    var id, text: String
+    var id, text, tag, lesson: String
     var replies, payloads, routes: [String]
-    var tag, lesson: String
 }
 
 struct ChatHistoryModel {
@@ -21,7 +20,6 @@ struct ChatHistoryModel {
 }
 
 struct ResponseButtonModel {
-    let buttonIndex:Int
-    let buttonChatID: String
-    let buttonText: String
+    let buttonIndex: Int
+    let buttonChatID, buttonText: String
 }

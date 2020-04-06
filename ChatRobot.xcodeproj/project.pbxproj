@@ -119,14 +119,11 @@
 			children = (
 				391579C024378A2700D0381A /* AppDelegate.swift */,
 				391579C224378A2700D0381A /* SceneDelegate.swift */,
-				391579C424378A2700D0381A /* ChatViewController.swift */,
-				391579FF24392AD700D0381A /* RobotChatCell.swift */,
-				39157A05243A2A9D00D0381A /* ChatButtonCell.swift */,
-				39157A03243A09CB00D0381A /* UserChatCell.swift */,
-				391579F0243794EE00D0381A /* DatasourceService.swift */,
-				391579F22437950400D0381A /* ChatViewModel.swift */,
-				391579F82438AE8400D0381A /* ChatInfoProcessor.swift */,
-				391579F42437956500D0381A /* ChatModel.swift */,
+				39A64A62243A5ADE00864786 /* ChatViews */,
+				39A64A63243A5AF800864786 /* Data Service */,
+				39A64A64243A5B0900864786 /* ChatViewModel */,
+				39A64A65243A5B1D00864786 /* Processor */,
+				39A64A66243A5B2D00864786 /* ChatModel */,
 				391579F62437959400D0381A /* allornothing.json */,
 				391579C924378A2800D0381A /* Assets.xcassets */,
 				391579CB24378A2800D0381A /* LaunchScreen.storyboard */,
@@ -163,6 +160,49 @@
 			path = Mock;
 			sourceTree = "<group>";
 		};
+		39A64A62243A5ADE00864786 /* ChatViews */ = {
+			isa = PBXGroup;
+			children = (
+				391579C424378A2700D0381A /* ChatViewController.swift */,
+				391579FF24392AD700D0381A /* RobotChatCell.swift */,
+				39157A05243A2A9D00D0381A /* ChatButtonCell.swift */,
+				39157A03243A09CB00D0381A /* UserChatCell.swift */,
+			);
+			path = ChatViews;
+			sourceTree = "<group>";
+		};
+		39A64A63243A5AF800864786 /* Data Service */ = {
+			isa = PBXGroup;
+			children = (
+				391579F0243794EE00D0381A /* DatasourceService.swift */,
+			);
+			path = "Data Service";
+			sourceTree = "<group>";
+		};
+		39A64A64243A5B0900864786 /* ChatViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				391579F22437950400D0381A /* ChatViewModel.swift */,
+			);
+			path = ChatViewModel;
+			sourceTree = "<group>";
+		};
+		39A64A65243A5B1D00864786 /* Processor */ = {
+			isa = PBXGroup;
+			children = (
+				391579F82438AE8400D0381A /* ChatInfoProcessor.swift */,
+			);
+			path = Processor;
+			sourceTree = "<group>";
+		};
+		39A64A66243A5B2D00864786 /* ChatModel */ = {
+			isa = PBXGroup;
+			children = (
+				391579F42437956500D0381A /* ChatModel.swift */,
+			);
+			path = ChatModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -173,6 +213,7 @@
 				391579B924378A2700D0381A /* Sources */,
 				391579BA24378A2700D0381A /* Frameworks */,
 				391579BB24378A2700D0381A /* Resources */,
+				39A64A67243B73C900864786 /* Run Custom Script */,
 			);
 			buildRules = (
 			);
@@ -288,6 +329,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		39A64A67243B73C900864786 /* Run Custom Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Custom Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		391579B924378A2700D0381A /* Sources */ = {

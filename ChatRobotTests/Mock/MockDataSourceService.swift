@@ -11,8 +11,8 @@ import Foundation
 
 class MockDataSourceService {
     var isFetchDataCalled = false
-    var completeChatData = [ChatModel]()
-    var completeClosure: ((Result<[ChatModel], ChatServiceError>) -> ())!
+    var completeChatData: [ChatModel] = []
+    var completeClosure: ((Result<[ChatModel], ChatServiceError>) -> Void)!
     
     func fetchSuccess() {
         completeClosure(.success(completeChatData))
@@ -48,9 +48,9 @@ class DataGenerator {
     private func mockNoStartData(completData: [ChatModel]) {
         chatWithoutStart = completData
         
-        for i in 0 ... completData.count - 1 {
-            if chatWithoutStart![i].tag == "allornothing-start" {
-                chatWithoutStart![i].tag = ""
+        for index in 0 ... completData.count - 1 {
+            if chatWithoutStart![index].tag == "allornothing-start" {
+                chatWithoutStart![index].tag = ""
             }
         }
     }
@@ -58,9 +58,9 @@ class DataGenerator {
     private func mockNoEndData(completData: [ChatModel]) {
         chatWithoutEnd = completData
         
-        for i in 0 ... completData.count - 1 {
-            if chatWithoutEnd![i].tag == "bye" {
-                chatWithoutEnd![i].tag = ""
+        for index in 0 ... completData.count - 1 {
+            if chatWithoutEnd![index].tag == "bye" {
+                chatWithoutEnd![index].tag = ""
             }
         }
     }

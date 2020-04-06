@@ -9,14 +9,11 @@
 import UIKit
 
 class ChatButtonCell: UICollectionViewCell {
-    
     static var identifier: String = "Cell"
-    
     weak var textLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         let textLabel = UILabel(frame: .zero)
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(textLabel)

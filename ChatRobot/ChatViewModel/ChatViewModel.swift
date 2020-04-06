@@ -13,22 +13,20 @@ enum UserAlertError:  String, Error {
     case serverError = "Please wait a while and re-launch the app"
 }
 
-class ChatViewModel {
-    
-    var chatHistoryArray = [ChatHistoryModel]()
-    private let apiClient:DatasourceProtocol
+final class ChatViewModel {
+    var chatHistoryArray: [ChatHistoryModel] = []
+    private let apiClient: DatasourceProtocol
     private var chatProcesser: ChatInfoProcessor?
-    private var cellViewModels: [ChatListCellViewModel] = [ChatListCellViewModel]() {
+    private var cellViewModels: [ChatListCellViewModel] = [] {
         didSet {
-            self.reloadTableViewClosure?()
+            reloadTableViewClosure?()
         }
     }
-    
     var reloadTableViewClosure: (()->())?
     var showAlertClosure: (()->())?
     var alertMessage: String? {
         didSet {
-            self.showAlertClosure?()
+            showAlertClosure?()
         }
     }
     
@@ -36,10 +34,8 @@ class ChatViewModel {
         self.apiClient = apiClient
     }
     
-    func initFetch(){
-        
-        self.apiClient.getChatGuide{ [weak self] result in
-            
+    func initFetch() {
+        apiClient.getChatGuide { [weak self] result in
             do {
                 let chatData = try result.get()
                 self?.processChatInfo(chatInfo: chatData)
@@ -50,26 +46,24 @@ class ChatViewModel {
     }
     
     func getCellModels(at indexPath: IndexPath) -> ChatListCellViewModel {
-        
         return cellViewModels[indexPath.row]
     }
     
     func getButtonGroup() -> [ResponseButtonModel] {
-        if let buttonModels = self.chatHistoryArray.last?.buttons{
+        if let buttonModels = chatHistoryArray.last?.buttons{
             return buttonModels
-        }else {
+        } else {
             return []
         }
     }
     
     func getNumberOfRows() -> Int {
-        return self.chatHistoryArray.count
+        return chatHistoryArray.count
     }
     
-    private func processChatInfo(chatInfo: [ChatModel]){
-        
+    private func processChatInfo(chatInfo: [ChatModel]) {
         chatProcesser = ChatInfoProcessor(chatScheme: chatInfo)
-        guard let chatProcesser = self.chatProcesser else {
+        guard let chatProcesser = chatProcesser else {
             return
         }
         
@@ -83,8 +77,7 @@ class ChatViewModel {
         self.cellViewModels = createCellModels(chatObjects: chatHistoryArray)
     }
     
-    private func createCellModels(chatObjects: [ChatHistoryModel]) -> [ChatListCellViewModel]{
-        
+    private func createCellModels(chatObjects: [ChatHistoryModel]) -> [ChatListCellViewModel] {
         return chatObjects.map { ChatListCellViewModel(contentText: $0.contentText, isRobot: $0.isRobot) }
     }
 }
@@ -92,18 +85,20 @@ class ChatViewModel {
 extension ChatViewModel {
     
     func userPressedButton(buttonModel: ResponseButtonModel) {
+        chatHistoryArray.append(ChatHistoryModel(contentText: buttonModel.buttonText,
+                                                      isRobot: false,
+                                                      buttons: []))
         
-        self.chatHistoryArray.append(ChatHistoryModel(contentText: buttonModel.buttonText, isRobot: false, buttons: []))
-        
-        guard let chatProcesser = self.chatProcesser else {
+        guard let chatProcesser = chatProcesser else {
             return
         }
         
         do {
-            let nextChat = try chatProcesser.findNextChat(withID: buttonModel.buttonChatID, andIndex: buttonModel.buttonIndex).get()
+            let nextChat = try chatProcesser.findNextChat(withID: buttonModel.buttonChatID,
+                                                          andIndex: buttonModel.buttonIndex).get()
             self.chatHistoryArray.append(nextChat)
             self.cellViewModels = createCellModels(chatObjects: chatHistoryArray)
-        } catch  {
+        } catch {
             alertMessage = UserAlertError.serverError.rawValue
         }
     }

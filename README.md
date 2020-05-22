@@ -1,5 +1,5 @@
 # ChatRobot
-button-only conversation with a robot
+button-only conversation with a robot, user can click button to talk to the robot with pre-defined scripts 
 
 ## Branches:
 * master - stable app releases
